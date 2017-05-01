@@ -10,7 +10,6 @@
   more @ https://learn.adafruit.com
 */
 
-//audio playback
 #include <SPI.h>
 #include <Adafruit_VS1053.h>
 #include <SD.h>
@@ -20,7 +19,6 @@
 #define VS1053_CS       6     // VS1053 chip select pin (output)
 #define VS1053_DCS     10     // VS1053 Data/command select pin (output)
 #define CARDCS          5     // Card chip select pin
-// DREQ should be an Int pin *if possible* (not possible on 32u4)
 #define VS1053_DREQ     9     // VS1053 Data request, ideally an Interrupt pin
 #define FILE_NAME "beat1.mp3" //name of audio file to be played at each beat
 
@@ -98,11 +96,10 @@ void ledFadeToBeat() {
 
 void audioSetup() {
   audio.begin(); // initialise the music player
-  audio.sineTest(0x44, 500);    // Make a tone to indicate VS1053 is working
+  audio.sineTest(0x44, 500);// Make a tone to indicate VS1053 is working
   delay(1000);
-  SD.begin(CARDCS);    // initialise the SD card
-  // Set volume for left, right channels. lower numbers == louder volume!
-  audio.setVolume(0, 0);
+  SD.begin(CARDCS);         // initialise the SD card
+  audio.setVolume(0, 0);    // Set volume for left, right channels. lower numbers == louder volume!
   audio.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int on M0
 }
 
